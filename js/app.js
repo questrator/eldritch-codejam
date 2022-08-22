@@ -1,0 +1,1 @@
+import { setAncient } from "./ancient.js";
