@@ -85,9 +85,11 @@ const ancientsBlock = document.querySelector(".ancients");
 ancientsBlock.addEventListener("click", setAncient);
 
 function setAncient(event) {
-    const ancient = ancientsData.find(e => e.id === event.target.dataset.ancient);
-    console.log(ancient);
-    return ancient;
+    if (event.target.dataset.ancient === "random") console.log("random");
+    else {
+        const ancient = ancientsData.find(e => e.id === event.target.dataset.ancient);
+        console.log(ancient);
+    }
 }
 
 export {setAncient};
