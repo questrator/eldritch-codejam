@@ -1,4 +1,6 @@
 import { setAncient } from "./ancient.js";
-import { setLevel } from "./level.js";
+import { setDifficulty } from "./difficulty.js";
 import { setTracker } from "./tracker.js";
+import { setSpread } from "./spread.js";
 
+setSpread();
