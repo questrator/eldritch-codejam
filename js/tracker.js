@@ -1,7 +1,7 @@
 
 
 function setTracker(ancient) {
-    const colors = ["green", "blue", "brown"];
+    const colors = ["green", "brown", "blue"];
     const stages = document.querySelectorAll(".stage");
     const spread = ancient.spread;
 
