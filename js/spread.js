@@ -26,9 +26,16 @@ function setSpread() {
         }
         
         if (required) {
-            console.log(required)
+            console.log("required", required)
         }
-        console.log(set)
+        
+        if (remaining) {
+            
+        }
+
+        console.log(set);
+        console.log(ancientSet);
+        
         return set;
     }
     filterCards(cards, required, forbidden, remaining);

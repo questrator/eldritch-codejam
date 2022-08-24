@@ -12,6 +12,13 @@ section.difficulties {
     padding: 10px;
 }
 
+section.start {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px;
+}
+
 section.tracker {
     display: flex;
     flex-direction: column;
