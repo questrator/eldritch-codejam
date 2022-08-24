@@ -3,7 +3,7 @@ const ancients = {
         id: 'azathoth',
         name: 'Azathoth',
         cardFace: "./assets/Ancients/azathoth.png",
-        spread: {
+        pack: {
             green: [1, 2, 2],
             yellow: [2, 3, 4],
             blue: [1, 1, 0],
@@ -13,7 +13,7 @@ const ancients = {
         id: 'cthulhu',
         name: 'Cthulhu',
         cardFace: "./assets/Ancients/cthulhu.png",
-        spread: {
+        pack: {
             green: [0, 1, 3],
             yellow: [2, 3, 4],
             blue: [2, 0, 0],
@@ -23,7 +23,7 @@ const ancients = {
         id: 'iogSothoth',
         name: 'Yog-Sothoth',
         cardFace: "./assets/Ancients/iogSothoth.png",
-        spread: {
+        pack: {
             green: [0, 2, 3],
             yellow: [2, 3, 4],
             blue: [1, 1, 0],
@@ -33,7 +33,7 @@ const ancients = {
         id: 'shubNiggurath',
         name: 'Shub-Niggurath',
         cardFace: "./assets/Ancients/shubNiggurath.png",
-        spread: {
+        pack: {
             green: [1, 3, 2],
             yellow: [2, 2, 4],
             blue: [1, 1, 0],

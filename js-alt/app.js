@@ -7,12 +7,12 @@ let difficulty = null;
 
 function setAncient(data) {
     ancient = data;
-    console.log("ANCIENT", ancient.id);
+    console.log("ANCIENT", ancient);
 }
 
 function setDifficulty(data) {
     difficulty = data;
-    console.log("DIFFICULTY", difficulty.id);
+    console.log("DIFFICULTY", difficulty);
 }
 
 /* START */
@@ -23,17 +23,37 @@ const colors = Object.keys(config.cards);
 
 function getSpread() {
     if (!ancient || !difficulty) return;
+
     const needCards = {};
     const allCards = {};
     const removeCards = {};
-    colors.forEach(e => needCards[e] = ancient.spread[e].reduce((r, e) => r + e, 0));
+    colors.forEach(e => needCards[e] = ancient.pack[e].reduce((r, e) => r + e, 0));
     colors.forEach(e => allCards[e] = Object.values(config.cards[e]).flat().length);
+    colors.forEach(e => removeCards[e] = Object.values(config.cards[e]).flat().length - ancient.pack[e].reduce((r, e) => r + e, 0));
+    console.log("need ", needCards);
+    console.log("all ", allCards);
+    console.log("remove ", removeCards);
 
-    colors.forEach(e => removeCards[e] = Object.values(config.cards[e]).flat().length - ancient.spread[e].reduce((r, e) => r + e, 0));
+    const spread = Object.assign({}, config.cards);
 
-    console.log(needCards)
-    console.log(allCards)
-    console.log(removeCards)
+    if (difficulty.forbidden) {        
+        for (let key in spread) {
+            delete spread[key][difficulty.forbidden];
+        }
+    }
+    
+    if (difficulty.required) {
+        console.log("required:", difficulty.required);
+    }
+    
+    if (difficulty.remaining) {
+        console.log("remaining:", difficulty.remaining);
+        
+    }
+    
+    console.log("ANCIENT PACK", ancient.pack);
+    console.log("SPREAD", spread);
+    return spread;
 }
 
 export {

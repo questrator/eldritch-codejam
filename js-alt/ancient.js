@@ -1,4 +1,4 @@
-import getRandomN from "./randomizer.js";
+import { getRandomN } from "./randomizer.js";
 import { ancients } from "./config.js";
 import { setAncient } from "./app.js";
 
