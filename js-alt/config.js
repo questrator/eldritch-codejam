@@ -92,4 +92,10 @@ const cards = {
     }
 };
 
-export { ancients, difficulties, cards };
+const spreadBlank = {
+    stage1: {green: [], yellow: [], blue: []},
+    stage2: {green: [], yellow: [], blue: []},
+    stage3: {green: [], yellow: [], blue: []}    
+}
+
+export { ancients, difficulties, cards, spreadBlank };

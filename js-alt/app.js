@@ -12,32 +12,23 @@ ancientsBlock.addEventListener("click", setAncient);
 
 function setDifficulty(event) {
     difficulty = config.difficulties[event.target.dataset.level];
-    console.log("DIFFICULTY", difficulty);
 }
 
 function setAncient(event) {
-    ancient = event.target.dataset.ancient === "random"
-    ? Object.values(config.ancients)[getRandomN(0, Object.keys(config.ancients).length - 1)]
-    : config.ancients[event.target.dataset.ancient];
-    console.log("ANCIENT", ancient);
+    ancient = event.target.dataset.ancient === "random" ? Object.values(config.ancients)[getRandomN(0, Object.keys(config.ancients).length - 1)] : config.ancients[event.target.dataset.ancient];
 }
 
 const start = document.querySelector(".go");
 start.addEventListener("click", getDeck);
 const colors = Object.keys(config.cards);
-const cardTypes = Object.keys(config.cards[colors[0]]);
 
 function getDeck() {
     if (!ancient || !difficulty) return;
-    const deck = JSON.parse(JSON.stringify(config.cards));
+    deck = JSON.parse(JSON.stringify(config.cards));
     const needCards = {};
     colors.forEach(e => needCards[e] = ancient.pack[e].reduce((r, e) => r + e, 0));
     
-    if (difficulty.forbidden) {        
-        for (let color in deck) {
-            delete deck[color][difficulty.forbidden];
-        }
-    }
+    if (difficulty.forbidden) colors.forEach(color => delete deck[color][difficulty.forbidden]);
     
     if (difficulty.required && difficulty.remaining) {
         const remainingN = {};
@@ -48,9 +39,7 @@ function getDeck() {
                 delete deck[color][difficulty.remaining];
                 deck[color][difficulty.required] = shuffle(deck[color][difficulty.required]).slice(0, remainingN[color] === 0 ? deck[color][difficulty.required].length : remainingN[color]);
             }
-            if (remainingN[color] > 0) {
-                deck[color][difficulty.remaining] = shuffle(deck[color][difficulty.remaining]).slice(0, remainingN[color]);
-            }
+            else deck[color][difficulty.remaining] = shuffle(deck[color][difficulty.remaining]).slice(0, remainingN[color]);
         }
         colors.forEach(color => deck[color] = shuffle(Object.values(deck[color]).flat()));
     }
@@ -58,12 +47,15 @@ function getDeck() {
     if (!difficulty.required && !difficulty.remaining) {
         colors.forEach(color => deck[color] = shuffle(Object.values(deck[color]).flat()).slice(0, needCards[color]));
     }
-
-    showCards(deck);
-    return deck;
+    
+    logCards(deck);
 }
 
-function showCards(deck) {
+function getSpread(deck) {
+    const spread = 0
+}
+
+function logCards(deck) {
     console.log(config.cards);
     console.log(deck);
 
@@ -71,14 +63,9 @@ function showCards(deck) {
         for (let i = 0; i < deck[color].length; i++) {
             for (let diff in config.cards[color]) {
                 if (config.cards[color][diff].includes(deck[color][i])) {
-                    console.log(deck[color][i], color, diff);
-                    
+                    console.log(deck[color][i], color, diff);                    
                 }
             }
         }
     });
-}
-
-function getSpread(deck) {
-    const spread = 
 }
