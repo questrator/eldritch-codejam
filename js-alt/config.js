@@ -2,7 +2,7 @@ const ancients = {
     azathoth: {
         id: 'azathoth',
         name: 'Azathoth',
-        cardFace: "./assets/Ancients/azathoth.png",
+        cardFace: `./assets/Ancients/azathoth.png`,
         pack: {
             green: [1, 2, 2],
             yellow: [2, 3, 4],
@@ -93,9 +93,9 @@ const cards = {
 };
 
 const spreadBlank = {
-    stage1: {green: [], yellow: [], blue: []},
-    stage2: {green: [], yellow: [], blue: []},
-    stage3: {green: [], yellow: [], blue: []}    
+    green: {stage1: [], stage2: [], stage3: []},
+    yellow: {stage1: [], stage2: [], stage3: []},
+    blue: {stage1: [], stage2: [], stage3: []}
 }
 
 export { ancients, difficulties, cards, spreadBlank };
