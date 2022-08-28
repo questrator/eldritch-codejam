@@ -2,13 +2,12 @@ import * as config from "./config.js";
 import { getRandomN, shuffle } from "./randomizer.js";
 
 let [ancient, difficulty, deck, spread] = [null, null, null, null];
-
 const difficultiesBlock = document.querySelector(".difficulties");
 difficultiesBlock.addEventListener("click", setDifficulty);
 const ancientsBlock = document.querySelector(".ancients");
 ancientsBlock.addEventListener("click", setAncient);
 const start = document.querySelector(".go");
-start.addEventListener("click", getDeck);
+start.addEventListener("click", getSpread);
 const colors = Object.keys(config.cards);
 const stages = Array.from({length: Object.values(config.ancients)[0].pack[colors[0]].length}, (_, i) => `stage${i + 1}`);
 const next = document.querySelector(".next");
@@ -23,11 +22,10 @@ function setAncient(event) {
     ancient = event.target.dataset.ancient === "random" ? Object.values(config.ancients)[getRandomN(0, Object.keys(config.ancients).length - 1)] : config.ancients[event.target.dataset.ancient];
 }
 
-function getDeck() {
+function getSpread() {
     if (!ancient || !difficulty) return;
     deck = JSON.parse(JSON.stringify(config.cards));
-    const stages = Array.from({length: Object.values(config.ancients)[0].pack[colors[0]].length}, (_, i) => `stage${i + 1}`);
-    
+    const stages = Array.from({length: Object.values(config.ancients)[0].pack[colors[0]].length}, (_, i) => `stage${i + 1}`);    
     const needCards = colors.reduce((r, e) => (r[e] = ancient.pack[e].reduce((s, c) => s + c, 0), r), {});
 
     if (difficulty.forbidden) colors.forEach(color => delete deck[color][difficulty.forbidden]);
@@ -49,14 +47,11 @@ function getDeck() {
     if (!difficulty.required && !difficulty.remaining) {
         colors.forEach(color => deck[color] = shuffle(Object.values(deck[color]).flat()).slice(0, needCards[color]));
     }
-    getSpread();    
-}
 
-function getSpread() {
     spread = colors.reduce((r, e) => (r[e] = Array.from({length: ancient.pack[colors[0]].length}, (_, i) => `stage${i + 1}`).reduce((r, e) => (r[e] = [], r), {}), r), {});
     colors.forEach(color => ancient.pack[color].forEach((n, i) => Array.from({length: n}).forEach(_ => spread[color][`stage${i + 1}`].push(deck[color].pop()))));
     spread.stageCards = stages.map(stage => colors.reduce((r, color) => (r + spread[color][stage].length), 0));
-    tracking();
+    tracking();   
 }
 
 function tracking() {
